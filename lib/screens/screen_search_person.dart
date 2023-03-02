@@ -24,33 +24,31 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget expanded() {
     return Expanded(
       child: studentDisplay.isNotEmpty
-          ? ListView.separated(
-              itemBuilder: ((ctx, index) {
-                final data = studentList[index];
+          ? ListView.builder(
+              itemCount: studentDisplay.length,
+              itemBuilder: (context, index) {
+                // final data = studentList[index];
+                File img = File(studentDisplay[index].image!);
                 return ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: data.image == 'x'
-                        ? AssetImage('assests/avatar.png') as ImageProvider
-                        : FileImage(File(data.image!)),
+                  leading: CircleAvatar(   
+                    backgroundImage: FileImage(img),
+                    // studentDisplay[index].image.toString(),
+                    radius: 22,
                   ),
-                  title: Text(data.name),
-                  subtitle: Text(''),
+                  title: Text(studentDisplay[index].name),
+                  // subtitle: Text(
+                  //     '${studentDisplay[index]["age"].toString()} years old'),
                   onTap: (() {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ProfilePage(
+                                  passValue:studentDisplay[index],
                                   passId: index,
-                                  passValue: data,
                                 )));
                   }),
                 );
-              }),
-              separatorBuilder: (ctx, index) {
-                return Divider();
               },
-              itemCount: studentDisplay.length,
             )
           : const Center(
               child: Text(
