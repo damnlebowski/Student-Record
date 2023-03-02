@@ -28,13 +28,11 @@ class _SearchScreenState extends State<SearchScreen> {
               itemBuilder: ((ctx, index) {
                 final data = studentList[index];
                 return ListTile(
-                  leading: InkWell(
-                    child: CircleAvatar(
-                      radius: 30,
-                      backgroundImage: data.image == 'x'
-                          ? AssetImage('assests/avatar.png') as ImageProvider
-                          : FileImage(File(data.image!)),
-                    ),
+                  leading: CircleAvatar(
+                    radius: 30,
+                    backgroundImage: data.image == 'x'
+                        ? AssetImage('assests/avatar.png') as ImageProvider
+                        : FileImage(File(data.image!)),
                   ),
                   title: Text(data.name),
                   subtitle: Text(''),
