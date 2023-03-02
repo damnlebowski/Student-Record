@@ -12,7 +12,6 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  
   final _searchController = TextEditingController();
 
   List<StudentModel> studentList =
@@ -25,27 +24,35 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget expanded() {
     return Expanded(
       child: studentDisplay.isNotEmpty
-          ? ListView.builder(
-              itemCount: studentDisplay.length,
-              itemBuilder: (context, index) {
-                File img = File(studentDisplay[index].image!);
+          ? ListView.separated(
+              itemBuilder: ((ctx, index) {
+                final data = studentList[index];
                 return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: FileImage(img),
-                    radius: 22,
+                  leading: InkWell(
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: data.image == 'x'
+                          ? AssetImage('assests/avatar.png') as ImageProvider
+                          : FileImage(File(data.image!)),
+                    ),
                   ),
-                  title: Text(studentDisplay[index].name),
+                  title: Text(data.name),
+                  subtitle: Text(''),
                   onTap: (() {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ProfilePage(
-                                  passValue: studentDisplay[index],
                                   passId: index,
+                                  passValue: data,
                                 )));
                   }),
                 );
+              }),
+              separatorBuilder: (ctx, index) {
+                return Divider();
               },
+              itemCount: studentDisplay.length,
             )
           : const Center(
               child: Text(
@@ -69,7 +76,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-//ivede aanu setstate
+//setstate
   void _searchStudent(String value) {
     setState(() {
       studentDisplay = studentList
