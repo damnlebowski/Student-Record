@@ -27,17 +27,13 @@ class _SearchScreenState extends State<SearchScreen> {
           ? ListView.builder(
               itemCount: studentDisplay.length,
               itemBuilder: (context, index) {
-                // final data = studentList[index];
                 File img = File(studentDisplay[index].image!);
                 return ListTile(
                   leading: CircleAvatar(   
                     backgroundImage: FileImage(img),
-                    // studentDisplay[index].image.toString(),
                     radius: 22,
                   ),
                   title: Text(studentDisplay[index].name),
-                  // subtitle: Text(
-                  //     '${studentDisplay[index]["age"].toString()} years old'),
                   onTap: (() {
                     Navigator.push(
                         context,
