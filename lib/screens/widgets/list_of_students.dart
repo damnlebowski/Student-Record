@@ -11,7 +11,6 @@ class StudentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getAllStudents();
     return ValueListenableBuilder(
       valueListenable: studentListNotifier,
       builder:
